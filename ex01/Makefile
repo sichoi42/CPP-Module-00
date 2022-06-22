@@ -6,11 +6,11 @@
 #    By: sichoi <sichoi@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/21 18:35:07 by sichoi            #+#    #+#              #
-#    Updated: 2022/06/21 20:08:02 by sichoi           ###   ########.fr        #
+#    Updated: 2022/06/22 19:17:02 by sichoi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = megaphone
+NAME = phonebook
 
 CC = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
@@ -20,7 +20,8 @@ RED = \033[0;31m
 RESET = \033[0m
 CHECK = \033[0;32m\xE2\x9C\x94\033[0m
 
-FUNC = megaphone
+FUNC = PhoneBook\
+		Contact
 
 SRC = $(addsuffix .cpp, $(FUNC))
 OBJ = $(addsuffix .o, $(FUNC))
