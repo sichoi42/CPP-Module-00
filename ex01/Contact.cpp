@@ -6,7 +6,7 @@
 /*   By: sichoi <sichoi@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 16:54:14 by sichoi            #+#    #+#             */
-/*   Updated: 2022/06/22 17:56:11 by sichoi           ###   ########.fr       */
+/*   Updated: 2022/06/23 22:25:45 by sichoi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	Contact::set_field(int type, const std::string& prompt)
 	std::string	input;
 
 	std::cout << prompt;
+	input.clear();
 	std::getline(std::cin, input);
 	switch (type)
 	{

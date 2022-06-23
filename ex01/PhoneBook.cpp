@@ -6,7 +6,7 @@
 /*   By: sichoi <sichoi@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 16:53:50 by sichoi            #+#    #+#             */
-/*   Updated: 2022/06/22 19:25:24 by sichoi           ###   ########.fr       */
+/*   Updated: 2022/06/23 22:49:01 by sichoi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 PhoneBook::PhoneBook(void)
 {
 	_cur_idx = 0;
-	_max_cnt = 0;
+	_total = 0;
 }
 
 PhoneBook::~PhoneBook(void)
@@ -25,8 +25,8 @@ PhoneBook::~PhoneBook(void)
 
 void	PhoneBook::set_cur_idx(void)
 {
-	_cur_idx = _max_cnt % (MAX_PB + 1);
-	++_max_cnt;
+	_cur_idx = _total % MAX_PB;
+	++_total;
 }
 
 Contact&	PhoneBook::get_cur_contact(void)
@@ -36,7 +36,7 @@ Contact&	PhoneBook::get_cur_contact(void)
 
 int	PhoneBook::get_max_cnt(void)
 {
-	return (_max_cnt);
+	return (_total);
 }
 
 void	PhoneBook::set_contact(Contact& ct)
@@ -48,17 +48,17 @@ void	PhoneBook::set_contact(Contact& ct)
 	ct.set_field(CT_SECRET, "Secret: ");
 }
 
-Contact PhoneBook::get_contact(int idx)
+Contact&	PhoneBook::get_contact(int idx)
 {
 	return (_ct[idx]);
 }
 
 void	PhoneBook::show_contacts(void)
 {
-	int	max_cnt = get_max_cnt();
+	int	max_cnt = std::min(get_max_cnt(), MAX_PB);
 	for (int i = 0; i < max_cnt; i++)
 	{
-		Contact	ct = get_contact(i);
+		Contact& ct = get_contact(i);
 		std::cout << "Contact " << i << std::endl
 			<< "First name: " << ct.get_first_name() << std::endl
 			<< "Last name: " << ct.get_last_name() << std::endl
@@ -70,13 +70,16 @@ void	PhoneBook::show_contacts(void)
 void	PhoneBook::show_certain_contact(void)
 {
 	std::string	input;
+	int			max_cnt;
+	int			idx;
 
 	std::cout << "Enter what you want show: ";
 	std::getline(std::cin, input);
-	int	idx = std::stoi(input);
-	if (idx > _max_cnt - 1)
+	idx = std::stoi(input);
+	max_cnt = std::min(get_max_cnt(), MAX_PB);
+	if (idx > max_cnt - 1)
 	{
-		std::cout << "Total Contacts: " << _max_cnt % (MAX_PB + 1) << std::endl;
+		std::cout << "Wrong!! Maximum idx: " << max_cnt - 1 << std::endl;
 		return ;
 	}
 	Contact	ct = get_contact(idx);
@@ -93,25 +96,25 @@ int	main(void)
 
 	while (true)
 	{
-		std::string	input;
+		std::string	cmd;
 		std::cout << "----Enter Command----" << std::endl
 				<< "|       ADD         |" << std::endl
 				<< "|      SEARCH       |" << std::endl
 				<< "|       EXIT        |" << std::endl
 				<< "---------------------" << std::endl;
-		std::getline(std::cin, input);
-		if (input.compare("ADD") == 0)
+		std::getline(std::cin, cmd);
+		if (cmd.compare("ADD") == 0)
 		{
 			pb.set_cur_idx();
 			Contact& ct = pb.get_cur_contact();
 			pb.set_contact(ct);
 		}
-		else if (input.compare("SEARCH") == 0)
+		else if (cmd.compare("SEARCH") == 0)
 		{
 			pb.show_contacts();
 			pb.show_certain_contact();
 		}
-		else if (input.compare("EXIT") == 0)
+		else if (cmd.compare("EXIT") == 0)
 			return (0);
 		else
 			std::cout << "Wrong CMD!!" << std::endl;
