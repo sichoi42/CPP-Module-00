@@ -6,7 +6,7 @@
 /*   By: sichoi <sichoi@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 16:54:14 by sichoi            #+#    #+#             */
-/*   Updated: 2022/06/23 22:25:45 by sichoi           ###   ########.fr       */
+/*   Updated: 2022/06/23 23:01:07 by sichoi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,26 +22,26 @@ Contact::~Contact(void)
 
 }
 
-std::string	Contact::get_first_name(void)
+std::string	Contact::get_first_name(void) const
 {
 	return (_first_name);
 }
 
-std::string	Contact::get_last_name(void)
+std::string	Contact::get_last_name(void) const
 {
 	return (_last_name);
 }
 
-std::string	Contact::get_nick_name(void)
+std::string	Contact::get_nick_name(void) const
 {
 	return (_nick_name);
 }
-std::string	Contact::get_phone_number(void)
+std::string	Contact::get_phone_number(void) const
 {
 	return (_phone_number);
 }
 
-std::string	Contact::get_secret(void)
+std::string	Contact::get_secret(void) const
 {
 	return (_secret);
 }
@@ -72,13 +72,3 @@ void	Contact::set_field(int type, const std::string& prompt)
 			break;
 	}
 }
-
-// int	main(void)
-// {
-// 	Contact ct;
-// 	std::string s = "First name?: ";
-
-// 	ct.set_field(CT_FIRST_NAME, s);
-// 	std::cout << ct.get_first_name() << std::endl;
-// 	return (0);
-// }

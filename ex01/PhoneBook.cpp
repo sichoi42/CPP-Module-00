@@ -6,11 +6,12 @@
 /*   By: sichoi <sichoi@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 16:53:50 by sichoi            #+#    #+#             */
-/*   Updated: 2022/06/23 22:49:01 by sichoi           ###   ########.fr       */
+/*   Updated: 2022/06/23 23:24:08 by sichoi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PhoneBook.hpp"
+#include <iomanip>
 
 PhoneBook::PhoneBook(void)
 {
@@ -34,7 +35,7 @@ Contact&	PhoneBook::get_cur_contact(void)
 	return (_ct[_cur_idx]);
 }
 
-int	PhoneBook::get_max_cnt(void)
+int	PhoneBook::get_total(void) const
 {
 	return (_total);
 }
@@ -53,17 +54,37 @@ Contact&	PhoneBook::get_contact(int idx)
 	return (_ct[idx]);
 }
 
+std::string	PhoneBook::cut_string(std::string s) const
+{
+	if (s.size() > PAD_SIZE)
+	{
+		s[PAD_SIZE - 1] = '.';
+		s.erase(PAD_SIZE);
+	}
+	return (s);
+}
+
 void	PhoneBook::show_contacts(void)
 {
-	int	max_cnt = std::min(get_max_cnt(), MAX_PB);
+	int	max_cnt = std::min(get_total(), MAX_PB);
+	if (max_cnt == 0)
+	{
+		std::cout << "No contact on phonbook!!" << std::endl;
+		return ;
+	}
+	std::cout << std::setfill(' ') << std::setw(PAD_SIZE) << "Index" << "|"
+			<< std::setfill(' ') << std::setw(PAD_SIZE) << "First name" << "|"
+			<< std::setfill(' ') << std::setw(PAD_SIZE) << "Last name" << "|"
+			<< std::setfill(' ') << std::setw(PAD_SIZE) << "Nick name" << "|"
+			<< std::setfill(' ') << std::setw(PAD_SIZE) << "Phone num" << std::endl;
 	for (int i = 0; i < max_cnt; i++)
 	{
 		Contact& ct = get_contact(i);
-		std::cout << "Contact " << i << std::endl
-			<< "First name: " << ct.get_first_name() << std::endl
-			<< "Last name: " << ct.get_last_name() << std::endl
-			<< "Nick name: " << ct.get_nick_name() << std::endl
-			<< "Phone number: " << ct.get_phone_number() << std::endl;
+		std::cout << std::setfill(' ') << std::setw(PAD_SIZE) << i << "|"
+				<< std::setfill(' ') << std::setw(PAD_SIZE) << cut_string(ct.get_first_name()) << "|"
+				<< std::setfill(' ') << std::setw(PAD_SIZE) <<  cut_string(ct.get_last_name()) << "|"
+				<< std::setfill(' ') << std::setw(PAD_SIZE) <<  cut_string(ct.get_nick_name()) << "|"
+				<< std::setfill(' ') << std::setw(PAD_SIZE) <<  cut_string(ct.get_phone_number()) << std::endl;
 	}
 }
 
@@ -76,7 +97,7 @@ void	PhoneBook::show_certain_contact(void)
 	std::cout << "Enter what you want show: ";
 	std::getline(std::cin, input);
 	idx = std::stoi(input);
-	max_cnt = std::min(get_max_cnt(), MAX_PB);
+	max_cnt = std::min(get_total(), MAX_PB);
 	if (idx > max_cnt - 1)
 	{
 		std::cout << "Wrong!! Maximum idx: " << max_cnt - 1 << std::endl;

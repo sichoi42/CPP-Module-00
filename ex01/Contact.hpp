@@ -6,7 +6,7 @@
 /*   By: sichoi <sichoi@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 14:14:44 by sichoi            #+#    #+#             */
-/*   Updated: 2022/06/23 22:25:51 by sichoi           ###   ########.fr       */
+/*   Updated: 2022/06/23 23:24:25 by sichoi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,11 @@ class Contact
 	public:
 		Contact(void);
 		~Contact(void);
-		std::string	get_first_name(void);
-		std::string	get_last_name(void);
-		std::string	get_nick_name(void);
-		std::string	get_phone_number(void);
-		std::string	get_secret(void);
+		std::string	get_first_name(void) const;
+		std::string	get_last_name(void) const;
+		std::string	get_nick_name(void) const;
+		std::string	get_phone_number(void) const;
+		std::string	get_secret(void) const;
 		void		set_field(int type, const std::string& prompt);
 };
 
